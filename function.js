@@ -136,3 +136,27 @@ exports.getSympbyDisease = function(req, res) {
         }
     });
 };
+
+exports.ok = function(values, message, res) {
+  if(message == "Success Get Penyakit dan Gejala"){
+    var i;
+    var j;
+    var nama,kode;
+    var arrkodenama, arrnama, arrkode;
+    arrkodenama = arrnama = arrkode = new Array();
+    
+    for (i = 0; i < values.length; i++) {
+      kode = values[i]["kodegejala"];
+      arrkode = kode.split(",");
+      nama = values[i]["namagejala"];
+      arrnama = nama.split("--");
+      delete values[i]["kodegejala"];
+      delete values[i]["namagejala"];
+      
+      var arrkodenama = [];
+      for(j = 0; j < arrkode.length; j++){ // cause the length of name and code is always the same
+        arrkodenama.push({"kode":arrkode[j],"nama":arrnama[j]});
+      }
+      values[i]["gejala"] = arrkodenama;
+    }
+  }
