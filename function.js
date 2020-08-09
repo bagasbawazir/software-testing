@@ -35,3 +35,21 @@ exports.getById = function(req, res) {
         }
     });
 };
+
+exports.insertDiagnosa = function(req, res) {
+    
+    var username = req.body.username;
+    var location = req.body.lokasi;
+    var hasil = req.body.hasil;
+    var createdAt = Date.now();
+
+    connection.query('INSERT INTO diagnosa (username, hasil,location,createdAt) values (?,?,?,?)',
+    [ username,hasil,location,createdAt ], 
+    function (error, rows, fields){
+        if(error){
+            console.log(error)
+        } else{
+            response.ok(rows,"Success add diagnosa!", res)
+        }
+    });
+};
