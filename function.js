@@ -110,3 +110,16 @@ exports.register = function(req, res) {
         }
     });
 };
+
+exports.getSympImageId = function(req, res) {
+    
+    var kode = req.params.kode;
+    connection.query("SELECT kodepenyakit, penyakit, gambar, deskripsi, solusi, group_concat(kodegejala) as kodegejala, group_concat(gejala SEPARATOR '--') as namagejala FROM gejalapenyakit gp join penyakit p on gp.kodepenyakit = p.kode join gejala g on gp.kodegejala = g.kode where kodepenyakit = ? group by penyakit", [ kode],
+    function (error, rows, fields){
+        if(error){
+            console.log(error)
+        } else{
+            response.ok(rows, "Success Get Penyakit dan Gejala", res)
+        }
+    });
+};
