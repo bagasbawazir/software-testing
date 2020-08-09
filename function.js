@@ -53,3 +53,17 @@ exports.insertDiagnosa = function(req, res) {
         }
     });
 };
+
+exports.delete = function(req, res) {
+    
+    var id = req.params.id;
+
+    connection.query('DELETE FROM diagnosa WHERE id = ?',
+    [ id ], 
+    function (error, rows, fields){
+        if(error){
+            console.log(error)
+        } else{
+            response.ok(rows, "Success delete diagnosa at id : " + id, res)
+        }
+    });
